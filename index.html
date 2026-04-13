@@ -1,27 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Deekho POC</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deekho POC — UTM Tracking</title>
 
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-WKFX2NZZ');</script>
-  <!-- End Google Tag Manager -->
+  <!-- ✅ Google Tag Manager — HEAD snippet -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WKFX2NZZ');</script>
+  <!-- End Google Tag Manager -->
 
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; }
+
+    .container { background: #fff; border-radius: 12px; padding: 32px; width: 100%; max-width: 480px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+    h1 { font-size: 22px; font-weight: 600; color: #111; margin-bottom: 6px; }
+    .subtitle { font-size: 14px; color: #666; margin-bottom: 28px; }
+
+    /* UTM Banner */
+    .utm-banner { background: #f0f7ff; border: 1px solid #bcd8f7; border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; }
+    .utm-banner h3 { font-size: 12px; font-weight: 600; color: #1a6db5; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .utm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .utm-item { display: flex; flex-direction: column; }
+    .utm-key { font-size: 10px; color: #888; font-weight: 500; text-transform: uppercase; }
+    .utm-val { font-size: 13px; color: #1a6db5; font-weight: 500; }
+    .utm-val.empty { color: #bbb; font-style: italic; font-size: 12px; }
+
+    /* Form */
+    .form-group { margin-bottom: 18px; }
+    label { display: block; font-size: 13px; font-weight: 500; color: #333; margin-bottom: 6px; }
+    input { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; color: #111; outline: none; transition: border-color .2s; }
+    input:focus { border-color: #4a7cf5; }
+
+    button { width: 100%; padding: 12px; background: #4a7cf5; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background .2s; }
+    button:hover { background: #3a6ce5; }
+    button:disabled { background: #9ab4f9; cursor: not-allowed; }
+
+    /* Status Messages */
+    .status { margin-top: 16px; padding: 12px 16px; border-radius: 8px; font-size: 13px; display: none; }
+    .status.success { background: #eaf7ee; border: 1px solid #a3d9b1; color: #1a7a3a; display: block; }
+    .status.error   { background: #fff0f0; border: 1px solid #f5b8b8; color: #c0392b; display: block; }
+    .status.loading { background: #fff9e6; border: 1px solid #f5d97a; color: #7a5c00; display: block; }
+
+    /* API Response */
+    .api-response { margin-top: 16px; background: #1a1a2e; border-radius: 8px; padding: 14px 16px; display: none; }
+    .api-response h4 { font-size: 11px; color: #7a8aaa; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .api-response pre { font-size: 12px; color: #a8d8a8; white-space: pre-wrap; word-break: break-all; line-height: 1.6; }
+
+    .divider { border: none; border-top: 1px solid #eee; margin: 20px 0; }
+    .info-tag { display: inline-block; background: #f0f0f0; color: #555; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-right: 4px; margin-bottom: 4px; }
+  </style>
 </head>
 <body>
 
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKFX2NZZ"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
+  <!-- ✅ Google Tag Manager — BODY noscript snippet -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKFX2NZZ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-  <h1>Hello from Deekho POC</h1>
-  <p>GTM is running on this page.</p>
+  <div class="container">
+    <h1>Deekho Enquiry Form</h1>
+    <p class="subtitle">Fill in your details and we'll get back to you.</p>
+
+    <!-- UTM DISPLAY PANEL -->
+    <div class="utm-banner">
+      <h3>UTM Parameters Detected</h3>
+      <div class="utm-grid">
+        <div class="utm-item">
+          <span class="utm-key">utm_source</span>
+          <span class="utm-val" id="disp-source">—</span>
+        </div>
+        <div class="utm-item">
+          <span class="utm-key">utm_medium</span>
+          <span class="utm-val" id="disp-medium">—</span>
+        </div>
+        <div class="utm-item">
+          <span class="utm-key">utm_campaign</span>
+          <span class="utm-val" id="disp-campaign">—</span>
+        </div>
+        <div class="utm-item">
+          <span class="utm-key">utm_content</span>
+          <span class="utm-val" id="disp-content">—</span>
+        </div>
+        <div class="utm-item">
+          <span class="utm-key">utm_term</span>
+          <span class="utm-val" id="disp-term">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter your full name" />
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="Enter your email" />
+    </div>
+
+    <button id="submitBtn" onclick="handleSubmit()">Submit Enquiry</button>
+
+    <div class="status" id="statusMsg"></div>
+    <div class="api-response" id="apiResponse">
+      <h4>API Response (localhost:3000)</h4>
+      <pre id="apiResponseText"></pre>
+    </div>
+
+    <hr class="divider"/>
+    <p style="font-size:11px; color:#aaa; text-align:center;">
+      GTM: <span class="info-tag">GTM-WKFX2NZZ</span>
+      GA4: <span class="info-tag">G-WV3QL3X5DT</span>
+    </p>
+  </div>
+
+  <script>
+    // ============================================================
+    // STEP 1: Read UTM parameters from the URL
+    // ============================================================
+    function getUTMParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        utm_source:   params.get('utm_source')   || '',
+        utm_medium:   params.get('utm_medium')   || '',
+        utm_campaign: params.get('utm_campaign') || '',
+        utm_content:  params.get('utm_content')  || '',
+        utm_term:     params.get('utm_term')     || ''
+      };
+    }
+
+    // ============================================================
+    // STEP 2: Display UTM params on the page + push to dataLayer
+    // ============================================================
+    const utmParams = getUTMParams();
+
+    // Show on UI
+    function showUTM(id, val) {
+      const el = document.getElementById(id);
+      if (val) { el.textContent = val; el.classList.remove('empty'); }
+      else      { el.textContent = 'not set'; el.classList.add('empty'); }
+    }
+    showUTM('disp-source',   utmParams.utm_source);
+    showUTM('disp-medium',   utmParams.utm_medium);
+    showUTM('disp-campaign', utmParams.utm_campaign);
+    showUTM('disp-content',  utmParams.utm_content);
+    showUTM('disp-term',     utmParams.utm_term);
+
+    // Push UTM params into GTM dataLayer on page load
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'page_view_with_utm',
+      utm_source:   utmParams.utm_source,
+      utm_medium:   utmParams.utm_medium,
+      utm_campaign: utmParams.utm_campaign,
+      utm_content:  utmParams.utm_content,
+      utm_term:     utmParams.utm_term
+    });
+
+    // ============================================================
+    // STEP 3: Handle form submit
+    // ============================================================
+    async function handleSubmit() {
+      const name  = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const btn   = document.getElementById('submitBtn');
+      const statusEl = document.getElementById('statusMsg');
+      const apiEl    = document.getElementById('apiResponse');
+      const apiText  = document.getElementById('apiResponseText');
+
+      // Basic validation
+      if (!name || !email) {
+        statusEl.className = 'status error';
+        statusEl.textContent = 'Please fill in both name and email.';
+        return;
+      }
+
+      // Build payload — form data + UTM data
+      const payload = {
+        name:  name,
+        email: email,
+        utm_source:   utmParams.utm_source,
+        utm_medium:   utmParams.utm_medium,
+        utm_campaign: utmParams.utm_campaign,
+        utm_content:  utmParams.utm_content,
+        utm_term:     utmParams.utm_term,
+        submitted_at: new Date().toISOString(),
+        page_url:     window.location.href
+      };
+
+      // -------------------------------------------------------
+      // STEP 4: Push form_submit event to GTM dataLayer
+      // GTM will fire a GA4 tag based on this event
+      // -------------------------------------------------------
+      window.dataLayer.push({
+        event:        'form_submit',
+        form_name:    'enquiry_form',
+        user_name:    name,
+        user_email:   email,
+        utm_source:   utmParams.utm_source,
+        utm_medium:   utmParams.utm_medium,
+        utm_campaign: utmParams.utm_campaign,
+        utm_content:  utmParams.utm_content,
+        utm_term:     utmParams.utm_term
+      });
+
+      // -------------------------------------------------------
+      // STEP 5: Call localhost API
+      // -------------------------------------------------------
+      btn.disabled = true;
+      statusEl.className = 'status loading';
+      statusEl.textContent = 'Submitting... calling API...';
+      apiEl.style.display = 'none';
+
+      try {
+        const response = await fetch('http://localhost:3000/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+
+        statusEl.className = 'status success';
+        statusEl.textContent = 'Form submitted successfully! GTM event fired + API called.';
+        apiEl.style.display = 'block';
+        apiText.textContent = JSON.stringify(data, null, 2);
+
+      } catch (err) {
+        // API not running — still show GTM fired
+        statusEl.className = 'status error';
+        statusEl.textContent = 'GTM event fired successfully! But localhost API is not running. Start the Node.js server.';
+        apiEl.style.display = 'block';
+        apiText.textContent = 'Error: ' + err.message + '\n\nMake sure your Node.js API is running on localhost:3000';
+      }
+
+      btn.disabled = false;
+    }
+  </script>
 
 </body>
 </html>
