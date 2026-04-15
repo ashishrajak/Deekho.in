@@ -413,14 +413,7 @@
         isFormValid = false;
         
         // Track form submission success (for GTM)
-        if (typeof dataLayer !== 'undefined') {
-          dataLayer.push({
-            'event': 'form_submission_success',
-            'form_type': 'enquiry',
-            'full_name': formData.enquirerFirstName,
-            'submission_time': formData.timestamp
-          });
-        }
+        
         
         // Facebook Pixel tracking (if available)
         if (typeof fbq !== 'undefined') {
@@ -440,13 +433,7 @@
         console.error('Form submission error:', error);
         
         // Track form submission error (for GTM)
-        if (typeof dataLayer !== 'undefined') {
-          dataLayer.push({
-            'event': 'form_submission_error',
-            'form_type': 'enquiry',
-            'error_message': error.message
-          });
-        }
+        
         
         return false;
       }
