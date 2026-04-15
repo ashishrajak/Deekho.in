@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Deekho POC — UTM Tracking</title>
 
-  <!-- ✅ Google Tag Manager — HEAD snippet -->
+  <!-- ✅ Google Tag Manager — HEAD snippet (only standard GTM code) -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -58,7 +58,7 @@
 </head>
 <body>
 
-  <!-- ✅ Google Tag Manager — BODY noscript snippet -->
+  <!-- ✅ Google Tag Manager — BODY noscript snippet (only standard GTM code) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKFX2NZZ"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
@@ -135,7 +135,7 @@
     }
 
     // ============================================================
-    // STEP 2: Display UTM params on the page + push to dataLayer
+    // STEP 2: Display UTM params on the page
     // ============================================================
     const utmParams = getUTMParams();
 
@@ -151,19 +151,8 @@
     showUTM('disp-content',  utmParams.utm_content);
     showUTM('disp-term',     utmParams.utm_term);
 
-    // Push UTM params into GTM dataLayer on page load
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: 'page_view_with_utm',
-      utm_source:   utmParams.utm_source,
-      utm_medium:   utmParams.utm_medium,
-      utm_campaign: utmParams.utm_campaign,
-      utm_content:  utmParams.utm_content,
-      utm_term:     utmParams.utm_term
-    });
-
     // ============================================================
-    // STEP 3: Handle form submit
+    // STEP 3: Handle form submit (NO custom GTM dataLayer pushes)
     // ============================================================
     async function handleSubmit() {
       const name  = document.getElementById('name').value.trim();
@@ -194,23 +183,7 @@
       };
 
       // -------------------------------------------------------
-      // STEP 4: Push form_submit event to GTM dataLayer
-      // GTM will fire a GA4 tag based on this event
-      // -------------------------------------------------------
-      window.dataLayer.push({
-        event:        'form_submit',
-        form_name:    'enquiry_form',
-        user_name:    name,
-        user_email:   email,
-        utm_source:   utmParams.utm_source,
-        utm_medium:   utmParams.utm_medium,
-        utm_campaign: utmParams.utm_campaign,
-        utm_content:  utmParams.utm_content,
-        utm_term:     utmParams.utm_term
-      });
-
-      // -------------------------------------------------------
-      // STEP 5: Call localhost API
+      // Call localhost API (NO custom GTM dataLayer code)
       // -------------------------------------------------------
       btn.disabled = true;
       statusEl.className = 'status loading';
@@ -226,14 +199,13 @@
         const data = await response.json();
 
         statusEl.className = 'status success';
-        statusEl.textContent = 'Form submitted successfully! GTM event fired + API called.';
+        statusEl.textContent = 'Form submitted successfully! API called.';
         apiEl.style.display = 'block';
         apiText.textContent = JSON.stringify(data, null, 2);
 
       } catch (err) {
-        // API not running — still show GTM fired
         statusEl.className = 'status error';
-        statusEl.textContent = 'GTM event fired successfully! But localhost API is not running. Start the Node.js server.';
+        statusEl.textContent = 'API call failed. Make sure your Node.js server is running on localhost:3000';
         apiEl.style.display = 'block';
         apiText.textContent = 'Error: ' + err.message + '\n\nMake sure your Node.js API is running on localhost:3000';
       }
