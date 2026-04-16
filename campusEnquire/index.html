@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enquiry Form Test</title>
+   <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-WKFX2NZZ');</script>
+
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Open Sans', sans-serif !important;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+    
+    header.masthead {
+      position: relative;
+      background-color: #343a40;
+    }
+    
+    .for-welcome-logo {
+      text-align: right;
+      max-width: 98%;
+      padding-bottom: 2rem;
+      padding-top: 1rem;
+    }
+    
+    .for-welcome-logo img {
+      max-width: 200px;
+    }
+    
+    @media only screen and (max-width: 600px) {
+      .for-welcome-logo {
+        text-align: center;
+        max-width: 90%;
+        padding-bottom: 2rem;
+        padding-top: 1rem;
+        margin: auto;
+      }
+      .for-welcome-logo img {
+        max-width: 250px;
+      }
+    }
+    
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    .admission-form {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    
+    .form-label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .text-danger {
+      color: #dc3545;
+    }
+    
+    .form-control, .form-select {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border: 1px solid #ced4da;
+      border-radius: 0.375rem;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    
+    .btn {
+      display: inline-block;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: center;
+      text-decoration: none;
+      vertical-align: middle;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 0.375rem;
+      transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    }
+    
+    .btn-success {
+      color: #fff;
+      background-color: #198754;
+      border: 1px solid #198754;
+    }
+    
+    .btn-success:hover {
+      background-color: #157347;
+      border-color: #146c43;
+    }
+    
+    .btn-success:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+    
+    .form-footer {
+      margin-top: 20px;
+      text-align: right;
+      padding-left: 0;
+    }
+    
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+    }
+    
+    .col-md-12 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+    
+    .mb-2 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .text-right {
+      text-align: right;
+    }
+    
+    .ng-valid {
+      border-color: #198754;
+    }
+    
+    .ng-invalid.ng-touched {
+      border-color: #dc3545;
+    }
+    
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    
+    .success-message {
+      color: #198754;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    
+    /* Spinner styles */
+    .ngx-spinner-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      display: none;
+    }
+    
+    .ngx-spinner-overlay > div {
+      top: 50%;
+      left: 50%;
+      margin: 0;
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+    
+    .ball-scale-multiple {
+      position: relative;
+    }
+    
+    .ball-scale-multiple > div {
+      background-color: #fff;
+      border-radius: 100%;
+      position: absolute;
+      animation: ball-scale-multiple 1s 0s linear infinite;
+    }
+    
+    .ball-scale-multiple > div:nth-child(1) {
+      width: 60px;
+      height: 60px;
+      animation-delay: -0.2s;
+    }
+    
+    .ball-scale-multiple > div:nth-child(2) {
+      width: 60px;
+      height: 60px;
+      animation-delay: -0.1s;
+    }
+    
+    .ball-scale-multiple > div:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      animation-delay: 0s;
+    }
+    
+    @keyframes ball-scale-multiple {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+    
+    .loading-text {
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKFX2NZZ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+ 
+  <div id="app-root">
+    <!-- Spinner Component -->
+    <div id="spinner" class="ngx-spinner-overlay" style="display: none;">
+      <div class="ball-scale-multiple">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="loading-text">Loading...</div>
+    </div>
+    
+    <header id="header-background" class="masthead text-white">
+      <div class="for-welcome-logo">
+        <img src="https://via.placeholder.com/200x60?text=Botho+University" alt="Botho University Logo">
+      </div>
+      
+      <div class="container">
+        <div class="admission-form">
+          <h4 class="text-center" style="font-size: 20px; padding: 1rem; font-weight: normal; color: #5c0000;">
+            Enquiry Form - Botho Universi. devvvvvv.  Online (Test Version)
+          </h4>
+          
+          <div class="radio-box text-left">
+            <form id="enquiryForm" novalidate class="admission-form1">
+              <!-- Only Name Field - keeping all original classes and attributes -->
+              <div class="row mb-2">
+                <div class="col-md-12 mb-2">
+                  <label for="enquirerFirstName" class="form-label">Full Name</label>
+                  <span class="text-danger">*</span>
+                  <input type="text" 
+                         id="enquirerFirstName" 
+                         name="enquirerFirstName"
+                         class="form-control" 
+                         required
+                         placeholder="Enter your full name">
+                  <div id="nameError" class="error-message" style="display: none;">Please enter your full name</div>
+                </div>
+              </div>
+              
+              <div class="form-footer text-right" style="padding-left: 0;">
+                <button id="submitButton" class="btn btn-success getACall">Get a call back</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <script>
+    // DOM Elements
+    const form = document.getElementById('enquiryForm');
+    const nameInput = document.getElementById('enquirerFirstName');
+    const submitButton = document.getElementById('submitButton');
+    const spinner = document.getElementById('spinner');
+    const nameError = document.getElementById('nameError');
+    
+    // Form validation state
+    let isFormValid = false;
+    
+    // Function to show spinner
+    function showSpinner() {
+      spinner.style.display = 'block';
+    }
+    
+    // Function to hide spinner
+    function hideSpinner() {
+      spinner.style.display = 'none';
+    }
+    
+    // Function to validate the form (same business logic)
+    function validateForm() {
+      let isValid = true;
+      
+      // Validate Name field
+      if (!nameInput.value || nameInput.value.trim() === '') {
+        nameInput.classList.add('ng-invalid');
+        nameInput.classList.remove('ng-valid');
+        nameError.style.display = 'block';
+        isValid = false;
+      } else {
+        nameInput.classList.remove('ng-invalid');
+        nameInput.classList.add('ng-valid');
+        nameError.style.display = 'none';
+      }
+      
+      isFormValid = isValid;
+      
+      // Enable/disable submit button based on validation
+      if (isFormValid) {
+        submitButton.removeAttribute('disabled');
+        submitButton.classList.remove('disabled');
+      } else {
+        submitButton.setAttribute('disabled', 'disabled');
+        submitButton.classList.add('disabled');
+      }
+      
+      return isValid;
+    }
+    
+    // Real-time validation on input
+    nameInput.addEventListener('input', function() {
+      validateForm();
+      
+      // Add touch/dirty classes for styling
+      this.classList.add('ng-dirty', 'ng-touched');
+      if (this.value && this.value.trim() !== '') {
+        this.classList.add('ng-valid');
+        this.classList.remove('ng-invalid');
+      } else {
+        this.classList.add('ng-invalid');
+        this.classList.remove('ng-valid');
+      }
+    });
+    
+    // Function to simulate form submission (same business logic)
+    async function submitForm() {
+      if (!validateForm()) {
+        console.log('Form validation failed');
+        return false;
+      }
+      
+      // Get form data
+      const formData = {
+        enquirerFirstName: nameInput.value.trim(),
+        timestamp: new Date().toISOString(),
+        formType: 'enquiry_test'
+      };
+      
+      console.log('Form submission started:', formData);
+      showSpinner();
+      
+      // Simulate API call (same as original business logic)
+      try {
+        // Simulating network request delay
+        await new Promise((resolve, reject) => {
+          setTimeout(() => {
+            // Simulate 90% success rate for testing
+            const isSuccess = Math.random() > 0.1;
+            if (isSuccess) {
+              resolve({ success: true, message: 'Enquiry submitted successfully!' });
+            } else {
+              reject({ success: false, message: 'Submission failed. Please try again.' });
+            }
+          }, 1500);
+        });
+        
+        // Success handling
+        hideSpinner();
+        
+        // Show success message (using SweetAlert style)
+        showAlert('Success!', `Thank you ${formData.enquirerFirstName}! Your enquiry has been submitted successfully.`, 'success');
+        
+        // Reset form
+        form.reset();
+        nameInput.classList.remove('ng-dirty', 'ng-touched', 'ng-valid');
+        submitButton.setAttribute('disabled', 'disabled');
+        isFormValid = false;
+        
+        // Track form submission success (for GTM)
+        
+        
+        // Facebook Pixel tracking (if available)
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'Lead', {
+            content_name: 'Enquiry Form Submission',
+            status: 'success'
+          });
+        }
+        
+        console.log('Form submission success:', formData);
+        return true;
+        
+      } catch (error) {
+        // Error handling
+        hideSpinner();
+        showAlert('Error!', error.message || 'Something went wrong. Please try again.', 'error');
+        console.error('Form submission error:', error);
+        
+        // Track form submission error (for GTM)
+        
+        
+        return false;
+      }
+    }
+    
+    // Alert function (mimicking SweetAlert style)
+    function showAlert(title, message, type) {
+      // Create modal container
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s ease;
+      `;
+      
+      const modalContent = document.createElement('div');
+      modalContent.style.cssText = `
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        animation: slideIn 0.3s ease;
+      `;
+      
+      const iconColor = type === 'success' ? '#198754' : '#dc3545';
+      const iconSymbol = type === 'success' ? '✓' : '✗';
+      
+      modalContent.innerHTML = `
+        <div style="font-size: 48px; color: ${iconColor}; margin-bottom: 10px;">${iconSymbol}</div>
+        <h3 style="margin: 0 0 10px 0; color: #333;">${title}</h3>
+        <p style="margin: 0 0 20px 0; color: #666;">${message}</p>
+        <button id="alertCloseBtn" style="
+          background-color: ${iconColor};
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 14px;
+        ">OK</button>
+      `;
+      
+      modal.appendChild(modalContent);
+      document.body.appendChild(modal);
+      
+      const closeBtn = modalContent.querySelector('#alertCloseBtn');
+      closeBtn.addEventListener('click', function() {
+        modal.style.animation = 'fadeOut 0.3s ease';
+        setTimeout(() => {
+          modal.remove();
+        }, 300);
+      });
+      
+      // Add animations
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes fadeOut {
+          from { opacity: 1; }
+          to { opacity: 0; }
+        }
+        @keyframes slideIn {
+          from { transform: translateY(-50px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    // Form submit handler (same as original)
+    submitButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (isFormValid) {
+        submitForm();
+      } else {
+        validateForm();
+        console.log('Please fill in all required fields');
+      }
+    });
+    
+    // Initialize form - set button to disabled initially
+    submitButton.setAttribute('disabled', 'disabled');
+    submitButton.classList.add('disabled');
+    
+    // Add keyboard submit support
+    nameInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter' && isFormValid) {
+        e.preventDefault();
+        submitForm();
+      }
+    });
+    
+    // Console log for GTM testing
+    console.log('Form initialized. Button ID: submitButton, Class: getACall');
+    console.log('Form classes:', form.className);
+    console.log('Button classes:', submitButton.className);
+    
+    // Expose for debugging (same as original structure)
+    window.enquiryForm = {
+      validate: validateForm,
+      submit: submitForm,
+      getFormData: () => ({ enquirerFirstName: nameInput.value.trim() })
+    };
+  </script>
+  
+  <!-- Bootstrap JS (optional, for better styling) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
